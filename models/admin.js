@@ -39,3 +39,9 @@ exports.updateSubject  = (id,hours,cb) => {
     cb(result)
   })
 };
+exports.rmSubject = (id, cb) => {
+  let sql = `DELETE FROM dwp.subjects WHERE id='${id}'`;
+  MySql.get().query(sql,(err,result) => {
+    cb(result)
+  })
+};

@@ -16,6 +16,16 @@ exports.updateSubject = function (req,res) {
     res.sendStatus(200);
   })
 }
+exports.rmSubject = function (req,res) {
+  AdminModel.rmSubject(req.query.id,function(result) {
+      if(result.affectedRows){
+      res.sendStatus(200)
+      }else {
+        res.send("user not found")
+      }
+  })
+}
+
   // if(req.body.name){
   //   Chat.getPersonalData(req.body.name,function(err, result, failed) {
   //
