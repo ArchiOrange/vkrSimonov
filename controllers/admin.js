@@ -1,16 +1,21 @@
-var Admin = require('../models/admin')
+var AdminModel = require('../models/admin')
 exports.subjects = (req,res) => {
-  Admin.getAllSubjects((result) => {
+  AdminModel.getAllSubjects((result) => {
   res.render("subjects",{result})
   // res.json(result)
 
   })
 }
 exports.addSubject = (req,res) => {
-  Admin.addSubject(req.query.name,req.query.hours,(err,data) => {
-    res.json(err)
+  AdminModel.addSubject(req.query.name, req.query.hours,(data) => {
+    res.sendStatus(200);
   })
 };
+exports.updateSubject = function (req,res) {
+  AdminModel.updateSubject(req.query.id, req.query.hours,function (result) {
+    res.sendStatus(200);
+  })
+}
   // if(req.body.name){
   //   Chat.getPersonalData(req.body.name,function(err, result, failed) {
   //

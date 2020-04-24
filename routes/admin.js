@@ -7,4 +7,5 @@ router.get('/', function(req, res, next) {
 });
 router.get('/subjects',AdminControllers.subjects);
 router.get('/addsubjects',AdminControllers.addSubject);
+router.get('/updatesubject',AdminControllers.updateSubject);
 module.exports = router;
