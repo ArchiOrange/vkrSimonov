@@ -9,4 +9,5 @@ router.get('/subjects',AdminControllers.subjects);
 router.get('/addsubjects',AdminControllers.addSubject);
 router.get('/updatesubject',AdminControllers.updateSubject);
 router.get('/deletesubject',AdminControllers.rmSubject);
+router.get('/users',AdminControllers.getAllUsers);
 module.exports = router;
