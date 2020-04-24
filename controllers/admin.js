@@ -36,45 +36,57 @@ class User {
 }
 exports.getAllUsers = function (req,res) {
   AdminModel.getAllUsers(function (data) {
-  let users = new Array();
-  users.push({
-        id: data[0].id,
-        name: data[0].name,
-        surname: data[0].surname,
-        patronymic: data[0].patronymic,
-        rank: data[0].rank,
-        loadFactor: data[0].load_factor,
-        priority: [{
-        priority: data[0].priority,
-        subjectId: data[0].subjectId,
-        subjectName: data[0].subjectName
-        }]
-  })
-  for (var i = 1; i < data.length; i++) {
-    if(data[i-1].id == data[i].id){
-      users[users.length-1].priority.push({
-      priority: data[i].priority,
-      subjectId: data[i].subjectId,
-      subjectName: data[i].subjectName
-      })
-    }else{
-      users.push({
-            id: data[i].id,
-            name: data[i].name,
-            surname: data[i].surname,
-            patronymic: data[i].patronymic,
-            rank: data[i].rank,
-            loadFactor: data[i].load_factor,
-            priority: [{
+    AdminModel.getAllSubjects(function (subjects) {
+
+        let users = new Array();
+        users.push({
+              id: data[0].id,
+              name: data[0].name,
+              surname: data[0].surname,
+              patronymic: data[0].patronymic,
+              rank: data[0].rank,
+              loadFactor: data[0].load_factor,
+              priority: [{
+              priority: data[0].priority,
+              subjectId: data[0].subjectId,
+              subjectName: data[0].subjectName
+              }]
+        })
+        for (var i = 1; i < data.length; i++) {
+          if(data[i-1].id == data[i].id){
+            users[users.length-1].priority.push({
             priority: data[i].priority,
             subjectId: data[i].subjectId,
             subjectName: data[i].subjectName
-            }]
-      })
-    }
-  }
-  res.json(users)
+            })
+          }else{
+            users.push({
+                  id: data[i].id,
+                  name: data[i].name,
+                  surname: data[i].surname,
+                  patronymic: data[i].patronymic,
+                  rank: data[i].rank,
+                  loadFactor: data[i].load_factor,
+                  priority: [{
+                  priority: data[i].priority,
+                  subjectId: data[i].subjectId,
+                  subjectName: data[i].subjectName
+                  }]
+            })
+          }
+        }
+        res.json({users:users,subjects:subjects})
+    })
   })
+}
+exports.deleteUser = function (req,res) {
+    AdminModel.deleteUser(req.query.id,function (result) {
+      if(result.affectedRows){
+      res.sendStatus(200)
+      }else {
+        res.send("user not found")
+      }
+    })
 }
   // if(req.body.name){
   //   Chat.getPersonalData(req.body.name,function(err, result, failed) {

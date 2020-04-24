@@ -10,4 +10,5 @@ router.get('/addsubjects',AdminControllers.addSubject);
 router.get('/updatesubject',AdminControllers.updateSubject);
 router.get('/deletesubject',AdminControllers.rmSubject);
 router.get('/users',AdminControllers.getAllUsers);
+router.get('/deleteusers',AdminControllers.deleteUser);
 module.exports = router;

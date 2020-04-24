@@ -47,9 +47,16 @@ exports.rmSubject = (id, cb) => {
 };
 exports.getAllUsers = (cb) => {
   let sql = `SELECT teachers.*,priority.priority,subjects.name as subjectName,subjects.id as subjectId
-            FROM dwp.teachers 
+            FROM dwp.teachers
             LEFT JOIN dwp.priority ON teachers.id= priority.idUser
             LEFT JOIN dwp.subjects ON subjects.id = priority.idSubject order by teachers.id`;
+  MySql.get().query(sql,(err,result) => {
+    cb(result)
+  })
+};
+exports.deleteUser = (id,cb) => {
+  let sql = `delete  dwp.priority.*, dwp.teachers.*   from dwp.teachers
+            left join dwp.priority on teachers.id = priority.idUser where  teachers.id = ${id} `;
   MySql.get().query(sql,(err,result) => {
     cb(result)
   })
