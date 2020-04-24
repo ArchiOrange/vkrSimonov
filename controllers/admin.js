@@ -1,7 +1,9 @@
 var Admin = require('../models/admin')
 exports.subjects = (req,res) => {
   Admin.getAllSubjects((result) => {
-  res.json(result)
+  res.render("subjects",{result})
+  // res.json(result)
+
   })
 }
 exports.addSubject = (req,res) => {
